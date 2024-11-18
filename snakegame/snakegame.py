@@ -4,7 +4,7 @@ import time
 
 # 게임 환경 설정 
 t.setup(600,600)
-t.bgpic('img_file/background2.gif') 
+t.bgpic('snakegame/img_file/background2.gif') 
 t.speed(0)
 t.penup()
 t.hideturtle()
@@ -12,11 +12,11 @@ t.hideturtle()
 # 사용자 설정 
 # 방향별 이미지 등록
 head_images = {
-    "right": "img_file/snake_head_right.gif",
-    "up": "img_file/snake_head_up.gif",
-    "left": "img_file/snake_head_left.gif",
-    "down": "img_file/snake_head_down.gif",
-    "body": "img_file/snake_body.gif"
+    "right": "snakegame/img_file/snake_head_right.gif",
+    "up": "snakegame/img_file/snake_head_up.gif",
+    "left": "snakegame/img_file/snake_head_left.gif",
+    "down": "snakegame/img_file/snake_head_down.gif",
+    "body": "snakegame/img_file/snake_body.gif"
 }
 
 tscreen = t.Screen()
@@ -51,10 +51,10 @@ f.hideturtle()
 f.penup()
 f.speed(0)
 
-apple = "img_file/chick.gif"
+chick = "snakegame/img_file/chick.gif"
 tscreen = t.Screen()
-tscreen.addshape(apple)
-f.shape(apple)
+tscreen.addshape(chick)
+f.shape(chick)
 
 
 game_running = True #게임 시작 상태
@@ -84,8 +84,8 @@ def endmsg():
 
     over = t.Turtle()
     scr = t.Screen()
-    scr.addshape('img_file\game_over.gif')
-    over.shape('img_file\game_over.gif')
+    scr.addshape('snakegame/img_file/game_over.gif')
+    over.shape('snakegame/img_file/game_over.gif')
     over.penup()
     over.speed(0)
     over.goto(0,100)
@@ -124,7 +124,7 @@ def move_forward():
     
     prev_head_pos = head.pos()
     
-    head.forward(6+(score/100))
+    head.forward(8)
     
     #첫 번째 몸통 이동
     body.setposition(prev_head_pos)
@@ -149,7 +149,11 @@ def move_forward():
         feed_reset()
     
     #위치 갱신 
-    t.ontimer(move_forward,1)
+    speed = 1
+    if score<=400:
+        speed = 8- int((score/50)*2)
+
+    t.ontimer(move_forward,speed)
 
 
 # keyboard 입력 설정 
