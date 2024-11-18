@@ -4,7 +4,7 @@ import time
 
 # 게임 환경 설정 
 t.setup(600,600)
-t.bgpic('snakegame/img_file/background2.gif') 
+t.bgpic('D:/python_study/python_study/snakegame/img_file/background2.gif') 
 t.speed(0)
 t.penup()
 t.hideturtle()
@@ -12,11 +12,11 @@ t.hideturtle()
 # 사용자 설정 
 # 방향별 이미지 등록
 head_images = {
-    "right": "snakegame/img_file/snake_head_right.gif",
-    "up": "snakegame/img_file/snake_head_up.gif",
-    "left": "snakegame/img_file/snake_head_left.gif",
-    "down": "snakegame/img_file/snake_head_down.gif",
-    "body": "snakegame/img_file/snake_body.gif"
+    "right": "D:/python_study/python_study/snakegame/img_file/snake_head_right.gif",
+    "up": "D:/python_study/python_study/snakegame/img_file/snake_head_up.gif",
+    "left": "D:/python_study/python_study/snakegame/img_file/snake_head_left.gif",
+    "down": "D:/python_study/python_study/snakegame/img_file/snake_head_down.gif",
+    "body": "D:/python_study/python_study/snakegame/img_file/snake_body.gif"
 }
 
 tscreen = t.Screen()
@@ -51,7 +51,7 @@ f.hideturtle()
 f.penup()
 f.speed(0)
 
-chick = "snakegame/img_file/chick.gif"
+chick = "D:/python_study/python_study/snakegame/img_file/chick.gif"
 tscreen = t.Screen()
 tscreen.addshape(chick)
 f.shape(chick)
@@ -84,8 +84,8 @@ def endmsg():
 
     over = t.Turtle()
     scr = t.Screen()
-    scr.addshape('snakegame/img_file/game_over.gif')
-    over.shape('snakegame/img_file/game_over.gif')
+    scr.addshape('D:/python_study/python_study/snakegame/img_file/game_over.gif')
+    over.shape('D:/python_study/python_study/snakegame/img_file/game_over.gif')
     over.penup()
     over.speed(0)
     over.goto(0,100)
@@ -124,7 +124,12 @@ def move_forward():
     
     prev_head_pos = head.pos()
     
-    head.forward(8)
+    if score<=400:
+        speed = 8 - int((score/50)*4)
+    else :
+        speed = 1
+
+    head.forward(7+int(score/100))
     
     #첫 번째 몸통 이동
     body.setposition(prev_head_pos)
@@ -149,10 +154,6 @@ def move_forward():
         feed_reset()
     
     #위치 갱신 
-    speed = 1
-    if score<=400:
-        speed = 8- int((score/50)*2)
-
     t.ontimer(move_forward,speed)
 
 
@@ -182,6 +183,7 @@ def start():
         head.setheading(90)
         feed_init()
         move_forward()
+        
 
 def r():
     global current_direction
