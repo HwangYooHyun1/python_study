@@ -73,7 +73,7 @@ def startmsg(msg1, msg2):
     msg.write(msg2,False, 'center', ("",15))
     msg.home()
 
-startmsg('Snake Game','[Space for Start]')
+startmsg('SNAKE GAME','[Space for Start]')
 
 #종료화면
 def endmsg():
