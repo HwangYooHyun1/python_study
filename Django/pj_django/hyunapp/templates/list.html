@@ -20,8 +20,8 @@
 			<h1>
 				Address List with Django
 			</h1>
-			<a href='write.do'>입력</a>&nbsp;&nbsp;&nbsp;
-            <a href='./'>인덱스</a><br/>
+			<a href='../write'>입력</a>&nbsp;&nbsp;&nbsp;
+            <a href='../'>인덱스</a><br/>
 			<table border='1' cellpadding='7' cellspacing='2' width='50%'>
 			<tr>
 			<th>번호</th>
@@ -33,11 +33,11 @@
             
             {% for address in addresses %}  <!--python 코드 작성 시, %}필수-->
 			<tr>
-			<td align='center'>{{address.id}}</td> <!--속성 사용 시, 중괄호 두개-->
+			<td align='center'><a href='../update/{{address.id}}'>{{address.id}}</a></td> <!--속성 사용 시, 중괄호 두개-->
 			<td>{{address.name}}</td>
 			<td>{{address.addr}}</td>
 			<td>{{address.rdate}}</td>
-			<td align='center'><a href='del?seq=77'>삭제</a></td>
+			<td align='center'><a href='../delete/{{address.id}}'>삭제</a></td> <!--method가 지정되어있지않으면 get방식-->
 			</tr>
             {% endfor %}
 			</table>
