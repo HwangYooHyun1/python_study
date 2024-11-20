@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import  HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import Address
+from .models import Address, BoardAddress
 from django.utils import timezone 
 from django.urls import reverse ## 이전 페이지로 돌아가기 위해 import 
 
@@ -62,3 +62,62 @@ def update_ok(request, id):   #post방식으로 받아오는건 아래서 받아
     address.save()
     
     return HttpResponseRedirect(reverse('list'))
+
+def boardlist(request):
+    template = loader.get_template('board/list.html')
+    boardaddresses = BoardAddress.objects.all().values()
+    context = { 'boardaddresses': boardaddresses}
+    return HttpResponse(template.render(context, request ))
+
+def board_write(request):
+    template = loader.get_template('board/write.html')
+
+    return HttpResponse(template.render({},request))
+
+def board_write_ok(request):
+    w = request.POST['writer']
+    e = request.POST['email']
+    s = request.POST['subject']
+    c = request.POST['content']
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    boardaddress = BoardAddress(writer=w, email=e, subject=s, content=c, rdate=nowDatetime)
+    boardaddress.save()
+
+    return HttpResponseRedirect(reverse('boardlist'))
+
+def board_content(request, id):
+    template = loader.get_template('board/content.html')
+    boardaddress = BoardAddress.objects.get(id=id)
+    context ={'boardaddress' : boardaddress }
+    return HttpResponse(template.render(context, request))
+
+def board_update(request,id):
+    template = loader.get_template('board/update.html')
+    boardaddress = BoardAddress.objects.get(id=id)
+    context = {'boardaddress':boardaddress}
+
+    return HttpResponse(template.render(context, request))
+
+def board_update_ok(request,id):
+    w = request.POST['writer']
+    e = request.POST['email']
+    s = request.POST['subject']
+    c = request.POST['content']
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    boardaddress = BoardAddress.objects.get(id=id)
+    boardaddress.writer = w
+    boardaddress.email = e
+    boardaddress.subject = s
+    boardaddress.content = c
+    BoardAddress.rdate = nowDatetime
+    boardaddress.save()
+
+    return HttpResponseRedirect(reverse('boardlist'))
+
+def board_delete(request, id):
+    boardaddress = BoardAddress.objects.get(id=id)
+    boardaddress.delete()
+    
+    return HttpResponseRedirect(reverse('boardlist'))

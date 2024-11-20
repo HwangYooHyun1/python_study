@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Django Board </title>
+	<meta charset="utf-8">
+	<style>
+		a{text-decoration:none}
+	</style>
+	{% load static %} <!--static을 올려라 -->
+	<script src="{% static '/js/trim.js'%}"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	    function f(){
+	    	input.email.value = "";
+	    	input.subject.value = "";
+	    	//input.content.innerText = "";
+	    	$("#ta").text("");
+	    	
+	    	input.email.focus();
+	    }
+	</script>
+</head>
+<body>
+<center>
+<font color='gray' size='4' face='휴먼편지체'>
+<hr width='600' size='2' color='gray' noshade>
+<h3> Django Board</h3>
+</font>
+<font color='gray' size='4' face='휴먼편지체'>
+<a href='../'>목록</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href='../write'>글쓰기</a><br/>
+</font>
+<hr width='600' size='2' color='gray' noshade>
+</center>
+
+<form name='input' method='post' action='../update_ok/{{boardaddress.id}}'>
+{% csrf_token %}
+<input type="hidden" name="seq" value="17">
+<table border='0' width='600' align='center' cellpadding='3' cellspacing='1' bordercolor='gray'>	
+<tr>
+   <td width='20%' align='center' >WRITER</td>
+   <td>
+      <input name='writer' readonly value='{{boardaddress.writer}}'/>
+   </td>
+</tr>
+
+<tr>
+	<td align='center'>EMAIL</td>
+	<td><input name='email' value="{{boardaddress.email}}"/></td>
+</tr>
+
+<tr>
+	<td align='center'>SUBJECT</td>
+	<td><input name='subject' value="{{boardaddress.subject}}"/></td>
+</tr>
+			
+<tr>
+	<td align='center'>CONTENT</td>
+	<td><textarea id='ta' name='content' values="{{boardaddress.content}}" rows='15' cols='70'></textarea></td>
+</tr>
+<tr>
+	 <td colspan='2' align='center'>
+		<input type='submit' value='수정'>
+		<input type="button" value="다시입력" onclick="f()">
+	 </td>
+</tr>
+
+</table>
+<hr width="600" size="2" color="gray" noshade>
+</form>
+</body>
+</html>
+
