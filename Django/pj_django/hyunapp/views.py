@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import  HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import Address, BoardAddress
+from .models import Address, BoardAddress, Member
 from django.utils import timezone 
 from django.urls import reverse ## 이전 페이지로 돌아가기 위해 import 
+from django.db.models import Q ##filter 여러 or 문 처리 
 
 def index(request):
     template = loader.get_template('index.html')
@@ -12,7 +13,15 @@ def index(request):
 
 def list(request):
     template = loader.get_template('list.html')
-    addresses = Address.objects.all().values()
+    #addresses = Address.objects.all().values()  #모든 데이터 출력
+    #addresses = Address.objects.filter(name='홍길동').values() #원하는 데이터 필터링
+    #addresses = Address.objects.filter(name='홍길동',addr='서울').values() # where ... and 조건
+    #addresses = Address.objects.filter(name='홍길동').values() | Address.objects.filter(addr='부산').values() # where ... or 조건 
+    #addresses = Address.objects.filter(Q(name='홍길동')|Q(addr='부산')).values() #or문을 간략하게
+    #addresses = Address.objects.filter(name__startswith='이').values() #column name 뒤에 __를 붙히고 옵션을 붙힘 
+    #addresses = Address.objects.all().order_by('-name').values() #내림차순 정렬 (- = desc)
+    addresses = Address.objects.all().order_by('-name','addr','-id').values() #여러 조건으로 정렬
+    
     context = {
         'addresses': addresses,
     }
@@ -63,6 +72,51 @@ def update_ok(request, id):   #post방식으로 받아오는건 아래서 받아
     
     return HttpResponseRedirect(reverse('list'))
 
+def login(request):
+    #template = loader.get_template('login.html')
+    #return HttpResponse(template.render({},request))
+    return render(request, 'login.html')  #다른 방법 
+
+def login_ok(request): 
+    email = request.POST['email']
+    pwd = request.POST['pwd']
+    
+    #로그인 정보 비교 
+    try:
+        member = Member.objects.get(email=email)
+    except Member.DoesNotExist:
+        member = None
+    
+    result = 0
+    if member!= None:
+        print('해당 회원이 존재')
+        if member.pwd == pwd:
+            print('비밀번호 일치')
+            result =2
+            #request를 통한 session 접근 가능 
+            #서버층 세션 메모리방에 key,value dict 형태로 저장
+            request.session['login_ok_user']  = member.email 
+        else:
+            print('비밀번호 불일치')
+            result = 1
+    else:
+        print('해당 회원이 존재하지 않음')
+        result = 0
+       
+    template = loader.get_template('login_ok.html')
+    context = {
+        'result': result, #2:success, 1:pwd error 0:email non-exist
+    }
+    return HttpResponse(template.render(context,request))
+
+def logout(request):
+    if request.session.get('login_ok_user'):
+        del request.session['login_ok_user']
+
+    #redirect는 새로운 경로를 요청하는 것, url 자체가 바뀜(새로고침) --> session에 저장된 data가 사라져야하니까!
+    return redirect("../") 
+
+#board 
 def boardlist(request):
     template = loader.get_template('board/list.html')
     boardaddresses = BoardAddress.objects.all().values()
