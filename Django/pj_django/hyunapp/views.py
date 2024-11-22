@@ -175,3 +175,67 @@ def board_delete(request, id):
     boardaddress.delete()
     
     return HttpResponseRedirect(reverse('boardlist'))
+
+#template
+
+def test1(request):
+    addresses = Address.objects.all().values()
+    template = loader.get_template("template1.html")
+    context = {
+        'yourname':'길동',
+        'addresses': addresses
+    }
+    return HttpResponse(template.render(context, request))
+
+def test2(request):
+    template = loader.get_template("template2.html")
+    context = {
+        'x': 2,
+        'y': 'tiger',
+        'fruits': ['apple', 'orange'],
+        'fruits2': ['apple', 'orange'],
+    }
+    return HttpResponse(template.render(context, request))
+
+def test3(request):
+    addresses = Address.objects.all().values()
+    temlate = loader.get_template("template3.html")
+    context = {
+        'fruits': ['apple', 'orange', 'melon'],
+        'cars': [{'brand':'현대', 'model':'소나타', 'year':'2022'}, {'brand':'테슬라', 'model':'모델X', 'year':'2020'}],
+        #'addresses': addresses,
+    }
+    return HttpResponse(temlate.render(context, request))
+
+def test4(request):
+    temlate = loader.get_template("template4.html")
+    context = {
+        'name': '홍길동',
+    }
+    return HttpResponse(temlate.render(context, request))
+
+def test5(request):
+    addresses = Address.objects.all().values()
+    temlate = loader.get_template("template5.html")
+    context = {
+        'addresses': addresses,
+    }
+    return HttpResponse(temlate.render(context, request))
+
+def test6(request):
+    addresses = Address.objects.all().values()
+    temlate = loader.get_template("template6.html")
+    context = {
+        'addresses': addresses,
+    }
+    return HttpResponse(temlate.render(context, request))
+
+def test7(request):
+    temlate = loader.get_template("template7.html")
+    context = {}
+    return HttpResponse(temlate.render(context, request))
+
+def test8(request):
+    temlate = loader.get_template("template8.html")
+    context = {}
+    return HttpResponse(temlate.render(context, request))

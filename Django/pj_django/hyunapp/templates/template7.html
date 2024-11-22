@@ -1,0 +1,16 @@
+{%include "login_check.html"%}
+<body>
+    <h2>template7.html</h2>
+    {% include "template7_top.html" with append_menu1="template" append_menu2="about" %}
+    <p> 갱신되는 정보들 </p>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    {% include "template7_footer.html"%}
+</body>
+
+{%comment%}
+with 키워드를 사용해 부모-자식 html 간에 데이터를 주고받을 수 있게 함
+부모가 date를 with로 주면, 자식은 {{append_menu1}}로 받아 사용 가능 
+
+회원 서비스인 경우, include를 사용해 로그인 유무를 확인하는 코드를 끌어와서 사용하면 편리!
+{%endcomment%}
+

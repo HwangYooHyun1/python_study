@@ -1,0 +1,11 @@
+<p>안녕.. <span style="color:red">{{yourname}}</span>.. 방가^^</p>
+
+{% with myname="유현" %}  <!--html에서 자체 변수 선언-->
+    <p>내 이름은 <font color="blue">{{myname}}</font> 이야</p>
+{% endwith %}
+
+<ul>    
+	{% for address in addresses %}
+	<li>{{ address.name}}</li>
+	{% endfor %}
+</ul>

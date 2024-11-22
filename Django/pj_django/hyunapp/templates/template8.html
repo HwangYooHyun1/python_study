@@ -1,0 +1,19 @@
+{% with name="Water Melon" %}
+    <p> 안녕 {{name|upper}} 방가~^^</p>
+{% endwith %}
+
+{% with name="water melon" %}
+    <p> 안녕 {{name|first|upper}} 방가~^^</p>
+{% endwith %}
+
+{% with name="Water Melon" %}
+    <p> 안녕 {{name|first|lower}} 방가~^^</p>
+{% endwith %}
+
+{% filter upper %}
+    <p> Good morning my friend </p>
+{% endfilter %}
+
+{% filter upper|linenumbers|lower %}What 
+makes you 
+so happy ?{% endfilter %}

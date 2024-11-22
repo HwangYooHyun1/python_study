@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-piup0_lc3n2p@+g-_ly!+93r((c$hv&ir00%7fbe%axnagwx+%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.41.0.92','127.0.0.1']
+ALLOWED_HOSTS = ['10.41.0.92','127.0.0.1','localhost']
 
 
 # Application definition
@@ -124,3 +124,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_COOKIE_AGE = 1800 #30분
+SESSION_SAVE_EVERY_REQUESTS = True
+

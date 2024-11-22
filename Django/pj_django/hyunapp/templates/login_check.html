@@ -1,0 +1,9 @@
+{% if not request.session.login_ok_user %}
+    <Script language='javascript'>
+        alert('로그인이 필요한 서비스입니다.');
+        //location.href="../"; 근데 이건 그냥 상위로 올라가면 기존의 기록이 사라져서 기분나쁠지도...
+        //history.back(); 
+        location.href='../login'
+    </script>
+
+{% endif %}

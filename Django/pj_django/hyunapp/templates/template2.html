@@ -1,0 +1,55 @@
+{% if x == 1 %}
+    <p>하나</p>
+{% elif x == 2%}
+    <p>둘</p>
+{% else %}
+    <p>그밖..</p>
+{% endif %} <!--반드시 end tag가 필요-->
+
+
+{% if y %}
+    <p> y는 empty가 아님</p>
+{% else %}
+    <p> y는 empty 임</p>
+{% endif %}
+
+
+{% if x != 1 %}
+    <p>1이 아님</p>
+{% endif %}
+
+
+{% if x < 3 %}
+    <p>3보다 작다</p>
+{% endif %}
+
+
+{% if x == 2 and y == 'tiger' %}
+    <p> 2 그리고 tiger </p>
+{% endif %}
+
+
+{% if x == 2 and y == 'tiger' or x == 3%} <!--동률의 논리 연산자는 앞에서부터 연산됨-->
+    <p> (2 그리고 tiger) or (x는 3)</p>
+{% endif %}
+
+
+{% if 'orange' in fruits %}
+    <p> Yes.. orange </p>
+{% else %}
+    <p> No.. orange </p>
+{% endif %}
+
+
+{% if fruits is fruits2 %} <!--주소 비교-->
+    <p> fruits is fruits2 </p>
+{% else %}
+    <p> fruits is not fruits2 </p>
+{% endif %}
+
+
+{% if fruits == fruits2 %} <!--값(내용) 비교-->
+    <p> fruits == fruits2 </p>
+{% else %}
+    <p> fruits != fruits2 </p>
+{% endif %}

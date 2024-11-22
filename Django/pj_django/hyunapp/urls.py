@@ -24,6 +24,15 @@ urlpatterns = [
     path('boardlist/update/update_ok/<int:id>',views.board_update_ok, name='board_update_ok'),
     path('boardlist/delete/<int:id>/', views.board_delete, name='board_delete'),
     
+    #template
+    path('template1/', views.test1, name='template1'),
+    path('template2/', views.test2, name='template2'),
+    path('template3/', views.test3, name='template3'),
+    path('template4/', views.test4, name='template4'),
+    path('template5/', views.test5, name='template5'),
+    path('template6/', views.test6, name='template6'),
+    path('template7/', views.test7, name='template7'),
+    path('template8/', views.test8, name='template8'),
     
 
 ]

@@ -1,0 +1,26 @@
+<!--색상 cycle 생성-->
+{% for address in addresses %}
+    <li style="background-color:{% cycle 'yellow' 'lightgreen' 'lightblue'%}">  
+        {{address.name}}
+    </li>
+{% endfor %}
+<br/>
+
+{% for address in addresses %}
+    <!--silent 태그 : cycle의 색상 목록을 보여주지 않음, 배경색으로만 반영-->
+    {% cycle 'yellow' 'lightgreen' 'lightblue' as bgc silent %}
+    <li style="background-color:{{bgc}}"> 
+        {{address.name}}
+    </li>
+{% endfor %}
+<br/>
+
+{% for address in addresses %}
+    {% cycle 'yellow' 'lightgreen' 'lightblue' as bgc silent %}
+    {% if forloop.counter == 2 %}
+        {% resetcycle %}
+    {% endif %}
+    <li style="background-color:{{bgc}}"> 
+        {{address.name}}
+    </li>
+{% endfor %}

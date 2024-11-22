@@ -1,0 +1,14 @@
+{% extends 'template6_parents.html' %} <!--extends: 상속,장고에서는 구현하다는 의미-->
+{%comment%}
+부모가 정해놓은 큰 틀을 벗어날 수 없음
+{%{% endcomment %}
+
+{% block subject %}
+    <h4>주소록</h4>
+{% endblock %}
+<br/>
+{% block content %}
+    {% for address in addresses %}
+        <li>{{address.addr}}</li>
+    {% endfor %}
+{% endblock %}

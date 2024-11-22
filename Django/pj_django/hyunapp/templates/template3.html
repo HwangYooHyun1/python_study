@@ -1,0 +1,54 @@
+{% for x in fruits %}
+    <div> {{x}} </div>
+{% endfor %}
+<br/>
+{% for x in cars %}
+    <div> {{x.brand}} / {{x.model}} / {{x.year}} </div>
+{% endfor %}
+<br/>
+{% for address in addresses %}
+    <span style="font-weight:bold"> {{address.id}} </span>
+    <div> {{address.name}} / {{address.addr}} / {{address.rdate}} </div>
+{% endfor %}
+<br/>
+{% for address in addresses reversed %} <!--reversed db에서 가져온 순서를 반대로하는 keyword -->
+    <span style="font-weight:bold"> {{address.id}} </span>
+    <div> {{address.name}} / {{address.addr}} / {{address.rdate}} </div>
+{% endfor %}
+<br/>
+{% for address in addresses %}
+    <span style="font-weight:bold"> {{address.id}} </span>
+    <div> @ {{address.name}} / {{address.addr}} / {{address.rdate}} </div>
+    {% empty %} <!--데이터가 없을 경우, 아래의 멘트가 찍힘-->
+        No address 
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li>{{forloop.counter}}</li> <!--for loop에서 자동으로 숫자 생성/ db에 숫자가 없어도 만들어서 보여줄 수 있음-->
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li>{{forloop.counter0}}</li> <!--counter를 0부터 시작(default : 1부터 시작)-->
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li {% if forloop.first %}
+            style='background-color:pink'
+        {% endif %}
+    >{{x}}</li>
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li {% if forloop.last %}
+            style='background-color:orange'
+        {% endif %}
+    >{{x}}</li>
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li>{{forloop.revcounter}}</li>
+{% endfor %}
+<br/>
+{% for x in fruits %}
+    <li>{{forloop.revcounter0}}</li>
+{% endfor %}
